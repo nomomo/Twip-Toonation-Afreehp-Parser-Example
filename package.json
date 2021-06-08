@@ -1,0 +1,20 @@
+{
+  "name": "every-donation",
+  "version": "1.0.1",
+  "description": "",
+  "bin": {
+    "DonationAlertAPI": "./index.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "debug": "nodemon index.js"
+  },
+  "author": "Nomo",
+  "dependencies": {
+    "console-stamp": "^3.0.2",
+    "node-fetch": "^2.6.1",
+    "request": "^2.88.2",
+    "socket.io-client": "^2.3.1",
+    "websocket": "^1.0.34"
+  }
+}
