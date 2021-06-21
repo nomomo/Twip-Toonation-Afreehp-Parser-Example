@@ -30,16 +30,16 @@ async function main(){
     //////////////////////////////////////////////////////////////////
     var settings = {
         "afreehp": {
-            "use": false,
-            "alertbox_url": "http://afreehp.kr/page/VJWXnaiax8bYmqSVwJY"
+            "use": true,
+            "alertbox_url": "http://afreehp.kr/page/xxxxxxxxxxxxxxxxxxx"
         },
         "twip":{
             "use": true,
-            "alertbox_url": "https://twip.kr/widgets/alertbox/o9me5R432A"
+            "alertbox_url": "https://twip.kr/widgets/alertbox/xxxxxxxxxx"
         },
         "toonat": {
-            "use": false,
-            "alertbox_url": "https://toon.at/widget/alertbox/2e08ca0363a948487b31f5ae18be46be"
+            "use": true,
+            "alertbox_url": "https://toon.at/widget/alertbox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         }
     }
 
