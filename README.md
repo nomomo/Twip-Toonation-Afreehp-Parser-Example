@@ -1,4 +1,4 @@
-# Every-Donation
+# Twip-Toonation-Afreehp-Parser-Example
 
 - Nodejs example for parsing donation notifications from Afreeca helper, Twip, and Toonation
 - Afreeca helper, Twip, Toonation 의 도네이션 알림을 파싱하기 위한 Nodejs 예제
@@ -6,7 +6,7 @@
 
 ## How to install
 
-- git clone https://github.com/nomomo/Every-Donation.git
+- git clone https://github.com/nomomo/Twip-Toonation-Afreehp-Parser-Example.git
 - npm install
 
 ## How to use
@@ -22,7 +22,7 @@
 - Socket.IO
 - Socket.IO v2.x 서버를 사용하므로 Client 도 v2.x 버전을 사용해야 함.
 - Alert box url 로부터 idx 값 파싱 필요
-- websocket 접속 후, idx 값을 emit 하는 순간부터 본인 Alert box 의 알림을 가져올 수 있음
+- Socket.IO 연결 후, idx 값을 emit 하는 순간부터 본인 Alert box 의 알림을 가져올 수 있음
 
 ### Twip
 
