@@ -194,79 +194,90 @@ async function main(){
             console.error("Error get Twip token, version: " + e.toString());
         }
 
+        
+        var twipClient = null ;
         function connect_twip(){
-            if(settings.twip.token === undefined){
-                console.log("can not find twip token");
-                return;
-            }
-            if(settings.twip.version === undefined){
-                console.log("can not find version token");
-                return;
-            }
 
-            const url_ws_twip = `https://io.mytwip.net?alertbox_key=${settings.twip.alertbox_url.split("/").pop()}&version=${settings.twip.version}&token=${encodeURIComponent(settings.twip.token)}`;
-            const socketTwip = io(url_ws_twip,{
-                transports: ['websocket', 'polling'],
-                reconnection: true,
-                reconnectionDelay: 10000,
-                autoConnect: false
+            twipClient = null;
+            twipClient = new WebSocketClient();
+            
+            twipClient.on('connectFailed', function(error) {
+                console.log('Twip Connect Error: ' + error.toString());
             });
             
-            socketTwip.on("connect", function(){
-                console.log("Twip Connected");
+            twipClient.on('connect', function(connection) {
+                console.log('Twip Connected');
+        
+                setInterval(function(){
+                    connection.send("2");
+                }, 22000);
+                
+                connection.on('error', function(error) {
+                    console.error("Twip Connection Error: " + error.toString());
+                });
+                connection.on('close', function() {
+                    console.error('Twip Connection Closed. Try to reconnect after 10 seconds...');
+                    setTimeout(function(){
+                        connect_twip();
+                    },10000);
+                });
+
+
+                connection.on('message', function(message) {
+                    try{
+                        if (message.type === 'utf8') {
+                            let body = message.utf8Data;
+                            let eventName = null;
+                            let data = null;
+                            let details = null;
+                            if(body.charAt(body.length-1) == "]") {
+                                data = JSON.parse(body.substring(body.indexOf('['), body.length));
+                                eventName = data[0];
+                                details = data[1];
+                            }
+
+                            switch(eventName) {
+                                case "new donate" :
+                                    doSomething(details);
+                                    break;
+                                    
+                                case "new cheer" :
+                                    doSomething(details);
+                                    break;
+                                    
+                                case "new follow" :
+                                    doSomething(details);
+                                    break;
+                                    
+                                case "new sub" :
+                                    doSomething(details);
+                                    break;
+                                    
+                                case "new hosting" :
+                                    doSomething(details);
+                                    break;
+
+                                case "new redemption" :
+                                    doSomething(details);
+                                    break;
+
+                                default : break;
+                            }
+                        }
+                    }
+                    catch(e){
+                        console.error("Error from Twip message: " + e.toString());
+                    }
+                });
             });
             
-            // new donate
-            socketTwip.on("new donate", function(message){
-                doSomething(message);
-            });
-
-            // new cheer
-            socketTwip.on("new cheer", function(message){
-                doSomething(message);
-            });
-
-            // new follow
-            socketTwip.on("new follow", function(message){
-                doSomething(message);
-            });
-
-            // new sub
-            socketTwip.on("new sub", function(message){
-                doSomething(message);
-            });
-
-            // new hosting
-            socketTwip.on("new hosting", function(message){
-                doSomething(message);
-            });
-
-            // new redemption
-            socketTwip.on("new redemption", function(message){
-                doSomething(message);
-            });
-
-            socketTwip.on("not allowed ip", function(){
-                console.error("twip not allowed ip");
-            });
-            
-            socketTwip.on("version not match", function(){
-                console.log("twip version not match");
-            });
-
-            socketTwip.on("disconnect", function(){
-                console.log("twip disconnect");
-            });
-
-            // other event type
-            // pause, skip, reload, media:setvolume, media:show, exclude, ...
-            
-            setTimeout(function(){
-                socketTwip.connect();
-            },1000);
+            const url_ws_twip = `wss://io.mytwip.net/socket.io/?alertbox_key=${settings.twip.alertbox_url.split("/").pop()}&version=${settings.twip.version}&token=${encodeURIComponent(settings.twip.token)}&transport=websocket`;
+            twipClient.connect(url_ws_twip);
         }
 
-        connect_twip();
+        setTimeout(function(){
+            connect_twip();
+        },1000);
     }
 
 
