@@ -12,7 +12,7 @@ var pjson = require('./package.json');
 //////////////////////////////////////////////////////////////////
 console.log("==============================================");
 console.log("===========  START Every-Donation  ===========");
-console.log(`===========   Ver ${pjson.version}/20210609   ===========`);
+console.log(`===========       Ver ${pjson.version}        ===========`);
 console.log("==============================================");
 console.log("===========   Developed by NOMO    ===========");
 console.log("===========   nomotg@gmail.com     ===========");

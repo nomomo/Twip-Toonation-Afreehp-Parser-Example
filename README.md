@@ -26,11 +26,22 @@
 
 ### Twip
 
-- Socket.IO
+- WebSocket
 - Alert box url 로부터 token, version 값 파싱 필요
+- 일정 주기(약 20~30초) 간격으로 ping 에 해당하는 메시지를 보내야 연결이 종료되지 않음
 
 ### Toonation
 
 - WebSocket
 - Alert box url 로부터 payload 값 파싱 필요
 - 일정 주기(약 12초) 간격으로 ping 을 보내야 연결이 종료되지 않음
+
+## Change Logs
+
+### 1.0.2 (Jan. 3, 2022)
+
+- Twip 파싱 방식을 Socket.io 에서 WebSocket 으로 변경 (Mackbex 님 감사해요!)
+
+### 1.0.1 (Jun. 9, 2021)
+
+- Initial Commit
