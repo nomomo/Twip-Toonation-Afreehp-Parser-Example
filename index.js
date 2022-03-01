@@ -8,6 +8,7 @@ require('console-stamp')(console, {
     format: ':date(yyyy/mm/dd HH:MM:ss.l)' 
 } );
 var pjson = require('./package.json');
+const { clear } = require("console");
 
 //////////////////////////////////////////////////////////////////
 console.log("==============================================");
@@ -307,7 +308,9 @@ async function main(){
             console.error("Error toonat.payload parse: " + e.toString());
         }
         
-        var toonAtClient = null ;
+        var toonAtClient = null;
+        var toonAtIsConnected = false;
+        
         function connect_toonat(){
             if(settings.toonat.payload == undefined){
                 console.log("can not found toonay payload");
@@ -323,16 +326,27 @@ async function main(){
             
             toonAtClient.on('connect', function(connection) {
                 console.log('Toonat Connected');
+                toonAtIsConnected = true;
         
-                setInterval(function(){
-                    connection.ping("#ping");
-                }, 12000);
+                // Send pings every 12000ms when websocket is connected
+                const ping_toonat = function(){
+                    if(!toonAtIsConnected){
+                        return;
+                    }
+                    setTimeout(function(){
+                        connection.ping("#ping");
+                        ping_toonat();
+                    },12000);
+                }
+                ping_toonat();
         
                 connection.on('error', function(error) {
+                    toonAtIsConnected = false;
                     console.error("Toonat Connection Error: " + error.toString());
                 });
                 connection.on('close', function() {
                     console.error('Toonat Connection Closed. Try to reconnect after 10 seconds...');
+                    toonAtIsConnected = false;
                     setTimeout(function(){
                         connect_toonat();
                     },10000);

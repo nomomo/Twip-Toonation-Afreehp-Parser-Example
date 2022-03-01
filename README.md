@@ -38,6 +38,10 @@
 
 ## Change Logs
 
+### 1.0.3 (Mar. 1, 2022)
+
+- Toonation 연결이 끊긴 경우 Ping 을 보내지 않도록 수정 (jamesleegit 님 감사해요!)
+
 ### 1.0.2 (Jan. 3, 2022)
 
 - Twip 파싱 방식을 Socket.io 에서 WebSocket 으로 변경 (Mackbex 님 감사해요!)
