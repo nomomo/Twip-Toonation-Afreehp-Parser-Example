@@ -38,6 +38,10 @@
 
 ## Change Logs
 
+### 1.0.4 (Jul. 4, 2023)
+
+- Afreehp 의 모든 이벤트를 받아올 수 있는 코드 추가
+
 ### 1.0.3 (Mar. 1, 2022)
 
 - Toonation 연결이 끊긴 경우 Ping 을 보내지 않도록 수정 (jamesleegit 님 감사해요!)

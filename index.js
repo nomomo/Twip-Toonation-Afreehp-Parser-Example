@@ -83,6 +83,15 @@ async function main(){
                 reconnectionDelay: 10000,
                 autoConnect: false
             });
+
+            // to get all packet
+            var onevent = socketAfreehp.onevent;
+            socketAfreehp.onevent = function (packet) {
+                var args = packet.data || [];
+                onevent.call (this, packet);    // original call
+                packet.data = ["*"].concat(args);
+                onevent.call(this, packet);      // additional call to catch-all
+            };
             
             var page = {
                 idx: settings.afreehp.idx//,
@@ -96,6 +105,7 @@ async function main(){
                 // socket.send("pagecmd", pagecmd);
             });
             
+            // cmd and donation test
             socketAfreehp.on("cmd", function(data){
                 try{
                     // console.log(data);
@@ -146,6 +156,13 @@ async function main(){
             socketAfreehp.on("connect_error", function(err){
                 console.error("Afreehp connect_error");
                 console.error(err);
+            });
+
+            // all events
+            socketAfreehp.on("*", function(event, data) {
+                console.log("all events")
+                console.log("event type = ", event);
+                doSomething(data);
             });
 
             setTimeout(function(){
