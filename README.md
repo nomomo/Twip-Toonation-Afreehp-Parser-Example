@@ -20,6 +20,7 @@
 
 ### Afreeca helper
 
+- 현재 동작 안 함
 - Socket.IO
 - Socket.IO v2.x 서버를 사용하므로 Client 도 v2.x 버전을 사용해야 함.
 - Alert box url 로부터 idx 값 파싱 필요
@@ -33,7 +34,6 @@
 
 ### Toonation
 
-- 현재 동작 안 함
 - WebSocket
 - Alert box url 로부터 payload 값 파싱 필요
 - 일정 주기(약 12초) 간격으로 ping 을 보내야 연결이 종료되지 않음
